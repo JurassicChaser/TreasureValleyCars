@@ -1,0 +1,131 @@
+import os
+from zipfile import ZipFile
+
+# Project structure
+project_name = "car-buying-website"
+os.makedirs(f"{project_name}/css", exist_ok=True)
+os.makedirs(f"{project_name}/js", exist_ok=True)
+os.makedirs(f"{project_name}/data", exist_ok=True)
+
+# File contents
+index_html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Find Your Car</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Find Your Car</h1>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="compare.html">Compare</a>
+      <a href="listings.html">Listings</a>
+      <a href="request.html">Find My Car</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Helping Buyers & Dealers Connect</h2>
+    <p>Compare models. Request a car. Buy with confidence.</p>
+    <a href="listings.html" class="btn">Browse Cars</a>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 FindYourCar.com</p>
+  </footer>
+</body>
+</html>
+"""
+
+style_css = """body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: #222;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 1rem;
+  color: white;
+  text-decoration: none;
+}
+
+.hero {
+  padding: 2rem;
+  background: #f4f4f4;
+  text-align: center;
+}
+
+.btn {
+  background: #007BFF;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  text-decoration: none;
+  border-radius: 4px;
+}
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: #222;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+"""
+
+script_js = "// JS placeholder for future functionality"
+
+cars_json = """[
+  {
+    "make": "Toyota",
+    "model": "Camry",
+    "year": 2020,
+    "price": 24000,
+    "doors": 4,
+    "engine": "4-cylinder"
+  },
+  {
+    "make": "Ford",
+    "model": "Mustang",
+    "year": 2019,
+    "price": 27000,
+    "doors": 2,
+    "engine": "V6"
+  }
+]"""
+
+# Write files
+with open(f"{project_name}/index.html", "w") as f:
+    f.write(index_html)
+
+with open(f"{project_name}/css/style.css", "w") as f:
+    f.write(style_css)
+
+with open(f"{project_name}/js/script.js", "w") as f:
+    f.write(script_js)
+
+with open(f"{project_name}/data/cars.json", "w") as f:
+    f.write(cars_json)
+
+# Create zip file
+zip_filename = f"{project_name}.zip"
+with ZipFile(zip_filename, 'w') as zipf:
+    for foldername, subfolders, filenames in os.walk(project_name):
+        for filename in filenames:
+            filepath = os.path.join(foldername, filename)
+            arcname = os.path.relpath(filepath, project_name)
+            zipf.write(filepath, arcname=arcname)
+
+print(f"{zip_filename} created successfully.")
