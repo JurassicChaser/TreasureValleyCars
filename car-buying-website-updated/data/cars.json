@@ -1,0 +1,18 @@
+[
+  {
+    "make": "Toyota",
+    "model": "Camry",
+    "year": 2020,
+    "price": 24000,
+    "doors": 4,
+    "engine": "4-cylinder"
+  },
+  {
+    "make": "Ford",
+    "model": "Mustang",
+    "year": 2019,
+    "price": 27000,
+    "doors": 2,
+    "engine": "V6"
+  }
+]
